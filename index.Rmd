@@ -1,0 +1,75 @@
+---
+title       : Developing Data Products App
+subtitle    : Self-Assessment Tool for Test Performance
+author      : Kurt Schuepfer
+job         : Data Scientist Trainee
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Purpose of the App
+
+- Students are often told they have to study hard in order to get good results. 
+- The purpose of this app is to allow students to see firsthand the effects of their study time on their test performance.
+
+---
+
+
+## How the App Works
+
+- Load the app 
+- Enter your test scores for five separate tests
+- Enter how many minutes you spent studying for each test
+- Click 'Submit' button
+- See your results in the tables and plot on the right side of the screen
+
+
+---
+
+## An Example:
+
+- Say your raw test score data is as follows:
+```{r, echo = FALSE}
+scoresVector <- c(87.30, 100, 73.10, 85, 80)
+minutesVector <- c(90, 150, 60, 120, 90)
+testData <- data.frame(Scores = scoresVector,Minutes = minutesVector)
+testData
+```
+
+
+- You would enter those numbers in the app.
+- The summary statistics output would look like this:
+```{r, echo=FALSE}
+                        testMean <- (mean(scoresVector))
+                        testMedian <- median(scoresVector)
+                        testMin <- min(scoresVector)
+                        testMax <- max(scoresVector)
+                        testSD <- sd(scoresVector)
+                        
+                        data.frame("Test_Average" = testMean, testMedian, testMin, testMax, testSD)
+
+testData <- data.frame(Scores = scoresVector,Minutes = minutesVector)
+```
+
+
+
+---
+
+## An Example
+
+- And the scatterplot would look like this:  
+```{r, echo=FALSE}
+plot <- plot(testData$Minutes, testData$Scores, 
+                     main = "Academic Performance vs Preparation Time",
+                     ylim = c(0, 100),
+                     ylab = "Test Score (% out of 100)", 
+                     xlim = c(0, max(minutesVector)),
+                     xlab = "Study Time (minutes)",
+                     abline(lm(Scores ~ Minutes, data = testData)))
+plot
+```
+---
